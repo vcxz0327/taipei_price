@@ -59,6 +59,7 @@
 
     <script>
 	d3v4.json("./all_both_2.json", function(err, cloud_data) {
+	d3v4.json("./all_original_2.json", function(err, cloud_data2) {
 
         var svg = d3v4.select("svg"),
             width = +svg.attr("width"),
@@ -191,9 +192,9 @@
 
                 // button
                 d3v4.select(".my_button").selectAll("button").on("click", buttonclick)
-		function draw_cloud(a,b) {
+		function draw_cloud(a,b,word_cloud_type) {
 			
-			data =cloud_data[a][b]
+			data =word_cloud_type[a][b]
 		    	d3.layout.cloud()
 			.size([width, height])
 			.words(data)
@@ -245,12 +246,17 @@
 			.text(data => data.text);
 		}
 		function refresh_table(){
-			d3v4.select("svg2").remove();
-			d3v4.select('#cloud')
-			  .append('svg2')
+			svg2.remove();
+			svg2 = d3v4.select('#cloud')
+			  .append('svg')
 			  .attr('width', width)
 			  .attr('height', height) 
 			}
+		function word_cloud_ge(a,b){
+			refresh_table()
+			draw_cloud(a,b)
+			
+		}
                 function restart() {
 
                     node = node.data(nodes, function(d) {return d.id;});
@@ -295,8 +301,10 @@
                         radar_svg.append('g')
                             .datum([Dataset()[d.singer_id]])
                             .call(chart);
-			draw_cloud(d.id,year)
+			word_cloud_ge(d.id,year)
                     })
+		    .selectAll("input")
+			.on("click", selectDataset(d.id,year))
                     .merge(node)
 
                     link = link.data(links, function(d) { return d.source + "-" + d.target; });
@@ -356,10 +364,30 @@
                     d.fy = null;
                 }
 
+		function selectDataset(a,b)
+		    {
+			var check1 = document.getElementsByTagName('input')[0]
+			var check2 = document.getElementsByTagName('input')[1]
+			if (check1.checked ===true && check2.checked ===true){
+			word_cloud_ge(a,b,cloud_data)
+			}
+			else if (check1.checked ===true && check2.checked ===false){
+			refresh_table();
+			word_cloud_ge(a,b,cloud_data)
+			}
+			else if (check1.checked ===false && check2.checked ===true){
+			refresh_table();
+			word_cloud_ge(a,b,cloud_data)
+			}
+			else if (check1.checked ===false && check2.checked ===false){
+			refresh_table();
+			word_cloud_ge(a,b,cloud_data2)
+			}
+			}
             })
         })
 	})
-
+	})
     </script>
 	<div id="cloud"></div>
 	<form>
