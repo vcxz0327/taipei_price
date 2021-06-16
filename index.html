@@ -16,9 +16,8 @@
     <script>
         d3v3 = window.d3;
     </script>
-    <link rel="stylesheet" type="text/css" href="./js/tooltip.css">
-    <script type="text/javascript" src="./js/d3.layout.cloud.js"></script>
-    <script type="text/javascript" src="./js/wordcloud_test.js"></script>
+    <link rel="stylesheet" type="text/css" href="./tooltip.css">
+    <script type="text/javascript" src="./d3.layout.cloud.js"></script>
     <link rel="stylesheet" href="https://yui-s.yahooapis.com/pure/0.5.0/pure-min.css">
     <link rel="stylesheet" href="https://rawgit.com/tpreusse/radar-chart-d3/master/src/radar-chart.css">
     
@@ -60,9 +59,7 @@
     <style></style>
 
     <script>
-	d3v4.json("./test.json", function(err, data) {
-	console.log(data["黑鴨子( Heiyazi )"])
-	})
+	d3v4.json("./test.json", function(err, cloud_data) {
 
         var svg = d3v4.select("svg"),
             width = +svg.attr("width"),
@@ -72,7 +69,13 @@
         // setting 
         var radar_width = 400
         var radar_height = 400
-
+	var width = 400; // window.innerWidth;
+	var height = 400;
+	//
+	var svg2 =d3v4.select('#cloud')
+	    .append('svg')
+	    .attr('width', radar_width  + 50)
+	    .attr('height', radar_height  + 50)
         // chart
         var chart = RadarChart.chart();
 
@@ -80,7 +83,7 @@
             .append('svg')
             .attr('width', radar_width + radar_width + 50)
             .attr('height', radar_height + radar_height + 50);
-
+	
         d3v3.csv('radar_VSdata.csv', function(datain) {
 
             function Dataset() {
@@ -183,11 +186,71 @@
                     year = this["value"]
                     reset_network()
                     update_network(year)
+		    draw_cloud()
                 }
 
                 // button
                 d3v4.select(".my_button").selectAll("button").on("click", buttonclick)
+		function draw_cloud() {
+			
+			data =cloud_data['1976樂團']['2000']
+		    	d3.layout.cloud()
+			.size([width, height])
+			.words(data)
+			.padding(3)
+			.rotate(0)
+			.font('"微軟正黑體",Impact')
+			.fontSize(data => {
+			    return window.parseFloat(Math.log10(data.count).toFixed(2)) * 17.5;
+			})
+			.on("end", drawWordCloud).start();
+			
+		}
+		function drawWordCloud() {
+		    let fill = d3.scaleOrdinal(d3.schemeCategory10);
+		    let tooltip = d3.select('#chart').append('div').attr('class', 'tooltip').style('opacity', 0);
 
+		    d3.select('svg')
+			.attr('width', width)
+			.attr('height', height)
+			.append('g')
+			.attr('transform', 'translate(' + (width / 2) + ', ' + (height / 2) + ')')
+			.selectAll('text')
+			.data(data)
+			.enter()
+			.append('text')
+			.style('font-size', data => {
+			    return Math.sqrt(data.count)*6;
+			})
+			.style('font-family', '"微軟正黑體", Impact')
+			.style('fill', (data, index) => fill(index))
+			.attr('text-anchor', 'middle')
+			.on('mouseover', data => {
+			    tooltip.transition()
+				.duration(200)
+				.style('opacity', 1);
+			    tooltip.html('關鍵字:' + data.text + '<br/>' + '次數:' + data.count)
+				.style('left', (d3.event.pageX) + 'px')
+				.style('top', (d3.event.pageY) + 'px');
+			})
+			.on('mouseout', data => {
+			    tooltip.transition()
+				.duration(500)
+				.style('opacity', 0);
+			})
+			.transition()
+			.duration(750)
+			.delay(150)
+			.attr("transform", data => "translate(" + [data.x, data.y] + ")rotate(" + data.rotate + ")")
+			.text(data => data.text);
+		}
+		function refresh_table(){
+			d3.select("svg").remove();
+			d3.select('#cloud')
+			  .append('svg')
+			  .attr('width', width)
+			  .attr('height', height) 
+			}
                 function restart() {
 
                     node = node.data(nodes, function(d) {return d.id;});
@@ -294,6 +357,7 @@
 
             })
         })
+	})
 
     </script>
 	<div id="cloud"></div>
