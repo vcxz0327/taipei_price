@@ -303,10 +303,11 @@
                             .call(chart);
 			word_cloud_ge(d.id,year)
                     })
-		    .selectAll("input")
+		    .call(d3v4.selectAll("input")
 			.on('click', function(d){
 			 selectDataset(d.id,year)
 		    })
+
                     .merge(node)
 
                     link = link.data(links, function(d) { return d.source + "-" + d.target; });
