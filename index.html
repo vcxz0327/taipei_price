@@ -58,7 +58,10 @@
     <style></style>
 
     <script>
-
+        d3.json("./data.json", function(data) {
+        
+        });
+        console.log(data);
         var svg = d3v4.select("svg"),
             width = +svg.attr("width"),
             height = +svg.attr("height"),
