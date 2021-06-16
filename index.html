@@ -304,7 +304,9 @@
 			word_cloud_ge(d.id,year)
                     })
 		    .selectAll("input")
-			.on("click", selectDataset(d.id,year))
+			.on('click', function(d){
+			 selectDataset(d.id,year)
+		    })
                     .merge(node)
 
                     link = link.data(links, function(d) { return d.source + "-" + d.target; });
