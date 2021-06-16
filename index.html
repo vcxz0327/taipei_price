@@ -72,10 +72,7 @@
 	var width = 400; // window.innerWidth;
 	var height = 400;
 	//
-	var svg2 =d3v4.select('#cloud')
-	    .append('svg')
-	    .attr('width', radar_width  + 50)
-	    .attr('height', radar_height  + 50)
+
         // chart
         var chart = RadarChart.chart();
 
@@ -83,6 +80,10 @@
             .append('svg')
             .attr('width', radar_width + radar_width + 50)
             .attr('height', radar_height + radar_height + 50);
+	var svg2 =d3v4.select('#cloud')
+	    .append('svg')
+	    .attr('width', radar_width  + 50)
+	    .attr('height', radar_height  + 50)
 	
         d3v3.csv('radar_VSdata.csv', function(datain) {
 
@@ -194,7 +195,7 @@
 		function draw_cloud() {
 			
 			data =cloud_data['1976樂團']['2000']
-		    	d3.layout.cloud()
+		    	d3v4.layout.cloud()
 			.size([width, height])
 			.words(data)
 			.padding(3)
@@ -207,10 +208,10 @@
 			
 		}
 		function drawWordCloud() {
-		    let fill = d3.scaleOrdinal(d3.schemeCategory10);
-		    let tooltip = d3.select('#chart').append('div').attr('class', 'tooltip').style('opacity', 0);
+		    let fill = d3v4.scaleOrdinal(d3v4.schemeCategory10);
+		    let tooltip = d3v4.select('#chart').append('div').attr('class', 'tooltip').style('opacity', 0);
 
-		    d3.select('svg')
+		    d3v4.select('svg')
 			.attr('width', width)
 			.attr('height', height)
 			.append('g')
@@ -230,8 +231,8 @@
 				.duration(200)
 				.style('opacity', 1);
 			    tooltip.html('關鍵字:' + data.text + '<br/>' + '次數:' + data.count)
-				.style('left', (d3.event.pageX) + 'px')
-				.style('top', (d3.event.pageY) + 'px');
+				.style('left', (d3v4.event.pageX) + 'px')
+				.style('top', (d3v4.event.pageY) + 'px');
 			})
 			.on('mouseout', data => {
 			    tooltip.transition()
@@ -245,8 +246,8 @@
 			.text(data => data.text);
 		}
 		function refresh_table(){
-			d3.select("svg").remove();
-			d3.select('#cloud')
+			d3v4.select("svg").remove();
+			d3v4.select('#cloud')
 			  .append('svg')
 			  .attr('width', width)
 			  .attr('height', height) 
