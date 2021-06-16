@@ -252,11 +252,9 @@
 			  .attr('width', width)
 			  .attr('height', height) 
 			}
-		function word_cloud_ge(a,b){
-			d3v4.selectAll("input")
-			.on('click',selectDataset(a,b))
+		function word_cloud_ge(a,b,c){
 			refresh_table()
-			draw_cloud(a,b)
+			draw_cloud(a,b,c)
 			
 		}
                 function restart() {
@@ -304,6 +302,7 @@
                             .datum([Dataset()[d.singer_id]])
                             .call(chart);
 			word_cloud_ge(d.id,year)
+			select_cloud(d.id,year)
                     })
 
 
@@ -319,7 +318,9 @@
                     simulation.force("link").links(links);
                     simulation.alpha(.03).restart();
                 }
-
+		function select_cloud(a,b){
+			d3v4.selectAll("input")
+			.on('click',selectDataset(a,b))
                 function reset_network() {
 
                     update_node = data["nodes"][year]
