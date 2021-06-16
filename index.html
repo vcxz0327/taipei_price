@@ -71,6 +71,9 @@
     <style></style>
 
     <script>
+	d3v4.json("./test.json", function(err, data) {
+	console.log(data["黑鴨子( Heiyazi )"])
+	})
 
         var svg = d3v4.select("svg"),
             width = +svg.attr("width"),
