@@ -186,14 +186,14 @@
                     year = this["value"]
                     reset_network()
                     update_network(year)
-		    draw_cloud()
+		    
                 }
 
                 // button
                 d3v4.select(".my_button").selectAll("button").on("click", buttonclick)
-		function draw_cloud() {
+		function draw_cloud(a,b) {
 			
-			data =cloud_data['1976樂團']['2000']
+			data =cloud_data[a][b]
 		    	d3.layout.cloud()
 			.size([width, height])
 			.words(data)
@@ -295,6 +295,7 @@
                         radar_svg.append('g')
                             .datum([Dataset()[d.singer_id]])
                             .call(chart);
+			draw_cloud(d.id,year)
                     })
                     .merge(node)
 
