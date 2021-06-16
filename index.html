@@ -253,6 +253,8 @@
 			  .attr('height', height) 
 			}
 		function word_cloud_ge(a,b){
+			d3v4.selectAll("input")
+			.on('click',selectDataset(a,b))
 			refresh_table()
 			draw_cloud(a,b)
 			
@@ -303,10 +305,7 @@
                             .call(chart);
 			word_cloud_ge(d.id,year)
                     })
-		    .call(d3v4.selectAll("input")
-			.on('click', function(d){
-			 selectDataset(d.id,year)
-		    }))
+
 
                     .merge(node)
 
