@@ -69,8 +69,8 @@
         // setting 
         var radar_width = 400
         var radar_height = 400
-	var width = 400; // window.innerWidth;
-	var height = 400;
+	var width = 800; // window.innerWidth;
+	var height = 800;
 	//
 
         // chart
@@ -82,8 +82,8 @@
             .attr('height', radar_height + radar_height + 50);
 	var svg2 =d3v4.select('#cloud')
 	    .append('svg2')
-	    .attr('width', radar_width  + 50)
-	    .attr('height', radar_height  + 50)
+	    .attr('width', width)
+	    .attr('height', height)
 	
         d3v3.csv('radar_VSdata.csv', function(datain) {
 
@@ -195,7 +195,7 @@
 		function draw_cloud() {
 			
 			data =cloud_data['1976樂團']['2000']
-		    	d3v4.layout.cloud()
+		    	d3.layout.cloud()
 			.size([width, height])
 			.words(data)
 			.padding(3)
