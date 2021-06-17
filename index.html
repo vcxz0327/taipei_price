@@ -217,7 +217,7 @@
 			.rotate(0)
 			.font('"微軟正黑體",Impact')
 			.fontSize(data => {
-			    return window.parseFloat(Math.log10(data.count).toFixed(2)) ;
+			    return window.parseFloat(Math.log10(data.count).toFixed(2))*17.5 ;
 			})
 			.on("end", drawWordCloud).start();
 			
@@ -236,7 +236,7 @@
 			.enter()
 			.append('text')
 			.style('font-size', data => {
-			    return Math.sqrt(data.count)*6;
+			    return Math.sqrt(data.count);
 			})
 			.style('font-family', '"微軟正黑體", Impact')
 			.style('fill', (data, index) => fill(index))
