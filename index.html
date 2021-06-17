@@ -196,11 +196,11 @@
 
                 var buttonclick = function() {
                     year = this["value"]
-		    var con = "all"
+		   
                     reset_network()
                     update_network(year)
 		    d3v4.json("./all_year.json", function(err, year_cloud_data) {
-		    
+		    var con = "all"
 		    word_cloud_ge(con,year,year_cloud_data)
 		    })    
                 }
