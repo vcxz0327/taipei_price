@@ -209,7 +209,8 @@
                 d3v4.select(".my_button").selectAll("button").on("click", buttonclick)
 		function draw_cloud(a,b,word_cloud_type) {
 			
-			let data =word_cloud_type[a][b]
+			var data =word_cloud_type[a][b]
+			console.log(data)
 		    	d3.layout.cloud()
 			.size([width, height])
 			.words(data)
