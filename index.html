@@ -56,7 +56,18 @@
     <div id="my_dataviz"></div>
 
     <style></style>
+    <div id="cloud"></div>
+    <form>
+	<input type="checkbox" name="brand" value="singleword" checked= "checked">
+	<label>
+	singleword
+	</label>
+	<input type="checkbox" name="brand" value="stopword" checked= "checked">
+	<label>
+	stopword
+	</label>
 
+    </form> 
     <script>
 	d3v4.json("./all_both_2.json", function(err, cloud_data) {
 	d3v4.json("./all_original_2.json", function(err, cloud_data2) {
@@ -302,7 +313,8 @@
                             .datum([Dataset()[d.singer_id]])
                             .call(chart);
 			word_cloud_ge(d.id,year,cloud_data)
-			select_cloud(d.id,year)
+			d3v4.selectAll("input")
+			.on('click',selectDataset(d.id,year))
                     })
 
 
@@ -319,8 +331,7 @@
                     simulation.alpha(.03).restart();
                 }
 		function select_cloud(a,b){
-			d3v4.selectAll("input")
-			.on('click',selectDataset(a,b))
+
 		}
                 function reset_network() {
 
@@ -394,18 +405,7 @@
 	})
 	})
     </script>
-	<div id="cloud"></div>
-	<form>
-		<input type="checkbox" name="brand" value="singleword" checked= "checked">
-		<label>
-		singleword
-		</label>
-		<input type="checkbox" name="brand" value="stopword" checked= "checked">
-		<label>
-		stopword
-		</label>
 
-	</form> 
 	<button id='addData'>addData</button>
     	<button id='cleanData'>cleanData</button>
 </body>
