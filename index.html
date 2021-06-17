@@ -217,7 +217,7 @@
 			.rotate(0)
 			.font('"微軟正黑體",Impact')
 			.fontSize(data => {
-			    return window.parseFloat(Math.log10(data.count).toFixed(2)) * 17.5;
+			    return window.parseFloat(Math.log10(data.count).toFixed(2)) ;
 			})
 			.on("end", drawWordCloud).start();
 			
