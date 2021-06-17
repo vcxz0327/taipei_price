@@ -315,26 +315,26 @@
 			word_cloud_ge(d.id,year,cloud_data);
 			d3v4.selectAll("input")
 		 	    .on('click',function(d){
-			var check1 = document.getElementsByTagName('input')[0]
-			var check2 = document.getElementsByTagName('input')[1]
-			console.log(check1)
-			if (check1.checked ===true && check2.checked ===true){
-			word_cloud_ge(d.id,year,cloud_data)
-			}
-			else if (check1.checked ===true && check2.checked ===false){
-			console.log('single')
-			refresh_table();
-			word_cloud_ge(d.id,year,cloud_data)
-			}
-			else if (check1.checked ===false && check2.checked ===true){
-			console.log('stop')
-			refresh_table();
-			word_cloud_ge(d.id,year,cloud_data)
-			}
-			else if (check1.checked ===false && check2.checked ===false){
-			refresh_table();
-			word_cloud_ge(d.id,year,cloud_data2)
-			}
+				console.log(d)
+				var check1 = document.getElementsByTagName('input')[0]
+				var check2 = document.getElementsByTagName('input')[1]
+				if (check1.checked ===true && check2.checked ===true){
+				word_cloud_ge(d.id,year,cloud_data)
+				}
+				else if (check1.checked ===true && check2.checked ===false){
+				console.log('single')
+				refresh_table();
+				word_cloud_ge(d.id,year,cloud_data)
+				}
+				else if (check1.checked ===false && check2.checked ===true){
+				console.log('stop')
+				refresh_table();
+				word_cloud_ge(d.id,year,cloud_data)
+				}
+				else if (check1.checked ===false && check2.checked ===false){
+				refresh_table();
+				word_cloud_ge(d.id,year,cloud_data2)
+				}
 				
 			})
                     })
